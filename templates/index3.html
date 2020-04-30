@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>
+            Adelphoi Document
+        </title>
+        <link rel="stylesheet" type="text/css" href="/home/ubuntu/Adelphoi/adelphoi-django/static/css/pdf_css.css">
+    </head>
+    <body style="border: 5px solid #d3d3d3; padding: 5px">
+        <div>
+        <!--img src="/home/ubuntu/Adelphoi/adelphoi-django/sources/logo.png" alt="logo" style="width120px;height:50px;float: right;"/-->
+	<img src="{% static "images/logo.png" %}" alt="logo" style="width120px;height:50px;float: right;"/>
+        </div>
+        <div>
+            <p class="detail">FirstMatch<span class="name">Report</span> </p>
+        <h2 style="text-align: center;font-family:Calibri;">{{name}}</h2>
+        <h3 style="font-family:Calibri;">Referral Status: {{refer_status}}	</h3>
+        <h3 style="font-family:Calibri;">Recommended Program:{{recommended_program}}	</h3>
+        <h3 style="font-family:Calibri;">Prognosis Score:{{confidence}} % </h3>
+        <h3 style="font-family:Calibri;">Prognosis Explanation:	</h3>
+        <p style="font-family:Calibri;">The prognosis score represents the likelihood that {{name}} will successfully complete the recommended program and remain out of care for at least one year.  The score was produced using the FirstMatch tool.  FirstMatch considered multiple predictive factors to produce {{name}}'s prognosis score.    These factors could include {{name}}'s YLS scores, CANS and FAST assessment factors, trauma history, age, legal status, family support and engagement likelihood, incarcerated caregiver or sibling, time since last living at home, mental health history/symptoms, substance abuse history, level of aggression, psychiatric hospitalizations, intellectual functioning, placement history, and AWOL history along with several other factors.
+        </p>
+        <p style="font-family:Calibri;">The FirstMatch tool compares {{name}}'s predictive factors to the historical outcomes achieved by youth that have been through {{recommended_program}} and presented with similar combinations of predictive factors.  The {{recommended_program}} provides a high fidelity program that uses interventions that have a demonstrated ability to replicate outcomes for the target population.
+        </p>
+        <p style="font-family:Calibri;">The FirstMatch tool recommends the program that has historically demonstrated the greatest success for youth with circumstances similar to {{name}}'s within Adelphoiâ€™s continuum of care</p>
+        <p style="font-family:Calibri;">The FirstMatch tool is also used by Adelphoi to assist in the treatment planning process.  Identifying and planning interventions for the needs and responsivity factors unique to {{name}} will help maximize {{name}}'s success likelihood.
+        </p></p><br/>
+        </div>
+        <h4 style="font-family:Calibri;">Additional information:</h4>
+        <p style="background-color: #b2beb5;">We hope this information is helpful to the courtâ€™s process of identifying the most suitable program for {{name}}.  Should you have any additional questions about this report, please contact our Admissions Director, Candice Rinaldi at (724)804-7013.</p>
+    </body>
+</html>

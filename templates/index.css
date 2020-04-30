@@ -1,0 +1,37 @@
+.heading{
+    border: #b2beb5;
+    border-style: solid; 
+    border-width:15px; 
+    border-radius: 5px;
+    padding-top: 15px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 35px;
+    text-align: center;
+}
+.img{
+    width:200px;
+    height:80px;
+    float: right;
+}
+h1{
+    color:red;
+    padding-top:10px;
+    text-align:center;
+    margin-left: 100px;
+    font-family:Calibri;
+}
+h2{
+    text-align: center;
+}
+h3{
+    font-size:15px;
+}
+.footer{
+    background-color:#b2beb5 ;
+    height: 100px;
+    margin: -20px;  
+}
+.content{
+    padding-left: 20px;
+}

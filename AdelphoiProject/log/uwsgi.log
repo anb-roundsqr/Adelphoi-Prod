@@ -1,0 +1,138 @@
+*** Starting uWSGI 2.0.18 (64bit) on [Fri Feb  7 02:38:01 2020] ***
+compiled with version: 7.4.0 on 30 January 2020 09:05:06
+os: Linux-4.15.0-1056-aws #58-Ubuntu SMP Tue Nov 26 15:14:34 UTC 2019
+nodename: ip-172-31-40-148
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /home/ubuntu/Adelphoi/adelphoi-django
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+setuid() to 1000
+chdir() to /home/ubuntu/Adelphoi/adelphoi-django
+your processes number limit is 3841
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: enabled
+uwsgi socket 0 bound to UNIX address /home/ubuntu/Adelphoi/adelphoi-django/AdelphoiProject/run/uwsgi.sock fd 6
+Python version: 3.6.9 (default, Nov  7 2019, 10:44:02)  [GCC 8.3.0]
+Set PythonHome to /home/ubuntu/Adelphoi/AdelphoiENV
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x557688634590
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+setting request body buffering size to 204800 bytes
+mapped 1388520 bytes (1355 KB) for 4 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x557688634590 pid: 7688 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 7688)
+spawned uWSGI worker 1 (pid: 7692, cores: 1)
+spawned uWSGI worker 2 (pid: 7693, cores: 1)
+spawned uWSGI worker 3 (pid: 7694, cores: 1)
+spawned uWSGI worker 4 (pid: 7695, cores: 1)
+unable to stat() /home/ubuntu/Adelphoi/adelphoi-django/AdelphoiProject/src/, events will be triggered as soon as the file is created
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: unix socket /home/ubuntu/Adelphoi/adelphoi-django/AdelphoiProject/run/uwsgi.sock removed.
+*** Starting uWSGI 2.0.18 (64bit) on [Fri Feb  7 02:39:36 2020] ***
+compiled with version: 7.4.0 on 30 January 2020 09:05:06
+os: Linux-4.15.0-1056-aws #58-Ubuntu SMP Tue Nov 26 15:14:34 UTC 2019
+nodename: ip-172-31-40-148
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /home/ubuntu/Adelphoi/adelphoi-django
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+setuid() to 1000
+chdir() to /home/ubuntu/Adelphoi/adelphoi-django
+your processes number limit is 3841
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: enabled
+uwsgi socket 0 bound to UNIX address /home/ubuntu/Adelphoi/adelphoi-django/AdelphoiProject/run/uwsgi.sock fd 6
+Python version: 3.6.9 (default, Nov  7 2019, 10:44:02)  [GCC 8.3.0]
+Set PythonHome to /home/ubuntu/Adelphoi/AdelphoiENV
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x55fc7ed58590
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+setting request body buffering size to 204800 bytes
+mapped 1388520 bytes (1355 KB) for 4 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x55fc7ed58590 pid: 7700 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 7700)
+spawned uWSGI worker 1 (pid: 7704, cores: 1)
+spawned uWSGI worker 2 (pid: 7705, cores: 1)
+spawned uWSGI worker 3 (pid: 7706, cores: 1)
+spawned uWSGI worker 4 (pid: 7707, cores: 1)
+unable to stat() /home/ubuntu/Adelphoi/adelphoi-django/AdelphoiProject/src/, events will be triggered as soon as the file is created
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: unix socket /home/ubuntu/Adelphoi/adelphoi-django/AdelphoiProject/run/uwsgi.sock removed.
+*** Starting uWSGI 2.0.18 (64bit) on [Thu Feb 20 10:44:08 2020] ***
+compiled with version: 7.4.0 on 30 January 2020 09:05:06
+os: Linux-4.15.0-1056-aws #58-Ubuntu SMP Tue Nov 26 15:14:34 UTC 2019
+nodename: ip-172-31-40-148
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /home/ubuntu/Adelphoi/adelphoi-django
+detected binary path: /usr/local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+setgid() to 33
+set additional group 4 (adm)
+set additional group 20 (dialout)
+set additional group 24 (cdrom)
+set additional group 25 (floppy)
+set additional group 27 (sudo)
+set additional group 29 (audio)
+set additional group 30 (dip)
+set additional group 44 (video)
+set additional group 46 (plugdev)
+set additional group 108 (lxd)
+set additional group 114 (netdev)
+setuid() to 1000
+chdir() to /home/ubuntu/Adelphoi/adelphoi-django
+your processes number limit is 3841
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: enabled
+uwsgi socket 0 bound to UNIX address /home/ubuntu/Adelphoi/adelphoi-django/AdelphoiProject/run/uwsgi.sock fd 6
+Python version: 3.6.9 (default, Nov  7 2019, 10:44:02)  [GCC 8.3.0]
+Set PythonHome to /home/ubuntu/Adelphoi/AdelphoiENV
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x556287a03c80
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+setting request body buffering size to 204800 bytes
+mapped 1388520 bytes (1355 KB) for 4 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x556287a03c80 pid: 13224 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 13224)
+spawned uWSGI worker 1 (pid: 13228, cores: 1)
+spawned uWSGI worker 2 (pid: 13229, cores: 1)
+spawned uWSGI worker 3 (pid: 13230, cores: 1)
+spawned uWSGI worker 4 (pid: 13231, cores: 1)
+unable to stat() /home/ubuntu/Adelphoi/adelphoi-django/AdelphoiProject/src/, events will be triggered as soon as the file is created
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: unix socket /home/ubuntu/Adelphoi/adelphoi-django/AdelphoiProject/run/uwsgi.sock removed.
