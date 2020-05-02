@@ -292,7 +292,8 @@ def update_logic(request,pk):
                     else:
                         data['Screening tool for Trauma--Total score'] = \
                             14.7244  # 14.634409
-
+                data['LS_Type'].fillna(data['LS_Type'].mode()[0], inplace=True)
+                data['LS_Type'] = data['LS_Type'].astype('int')
                 dummies = pd.DataFrame()
                 for column in ['Gender', 'LS_Type', 'CYF_code']:
                     # ,'RefSourceName'
@@ -378,16 +379,16 @@ def update_logic(request,pk):
                 Xtest[dummies.columns] = dummies
 
                 level_model = pickle.load(
-                    open(os.path.join(SOURCE_DIR, "new_pickles","R_LR_LC_11march.sav","rb")))
+                    open(os.path.join(SOURCE_DIR, "new_pickles","R_LR_LC_11march.sav"),"rb"))
                 program_model = pickle.load(
-                    open(os.path.join(SOURCE_DIR, "new_pickles","R_DT_P_11march.sav",
-                         "rb")))
+                    open(os.path.join(SOURCE_DIR, "new_pickles","R_DT_P_11march.sav"),
+                         "rb"))
                 facility_model = pickle.load(
-                    open(os.path.join(SOURCE_DIR, "new_pickles","R_LR_FT_11march.sav",
-                         "rb")))
+                    open(os.path.join(SOURCE_DIR, "new_pickles","R_LR_FT_11march.sav"),
+                         "rb"))
                 PC_model = pickle.load(
-                    open(os.path.join(SOURCE_DIR, "new_pickles","R_LR_PC_11march.sav",
-                         "rb")))
+                    open(os.path.join(SOURCE_DIR, "new_pickles","R_LR_PC_11march.sav"),
+                         "rb"))
 
                 level_pred = level_model.predict(Xtest)
                 program_pred = program_model.predict(Xtest)
@@ -428,14 +429,12 @@ def update_logic(request,pk):
                     Xp['FacilityType'] = facility_preds
                     Xp[dummies.columns] = dummies
                     PC_proba = PC_model.predict_proba(Xp)
-                    print(PC_proba)
                     if PC_proba[0][1] > (0.5):
                         Xp['ProgramCompletion'] = 1
                     else:
                         Xp['ProgramCompletion'] = 0
                     roc_model = pickle.load(open(
-                        os.path.join(SOURCE_DIR, "new_pickles","R_LR_RC_11march.sav",
-                        "rb")))
+                        os.path.join(SOURCE_DIR, "new_pickles","R_LR_RC_11march.sav"),"rb"))
                     roc_result = roc_model.predict_proba(Xp)
                     print("roc_result", roc_result)
                     return [round(PC_proba[0][1] * 100), round(roc_result[0][1] * 100)]
@@ -579,13 +578,13 @@ def update_logic(request,pk):
                                  "Confidence": confidence, "Roc_confidence": roc_confidence,
                                  "list_program_types": unique_list_programs})
                         else:
-                            if program_pred == 2:
+                            if (program_pred == 2 or program_pred == 1):
                                 drugUse = serializer.validated_data.get('drug_Use')
                                 ylsSUBAB = serializer.validated_data.get('yls_Subab_Score')
                                 alcholUSe = serializer.validated_data.get('alcohol_Use')
                                 p13_model = pickle.load(open(
-                                    os.path.join(SOURCE_DIR, "new_pickles","R_LR_P13_11march.sav",
-                                    "rb")))
+                                    os.path.join(SOURCE_DIR, "new_pickles","R_LR_P13_11march.sav"),
+                                    "rb"))
                                 p13_model_preds = p13_model.predict(Xtest)
                                 if (drugUse == 0 and ylsSUBAB == 0 and alcholUSe == 0):
                                     condition_program = 3
@@ -964,7 +963,7 @@ def update_logic(request,pk):
                              "list_program_types": unique_list_programs})
             else:
                 serializer.save()
-                return JsonResponse({"Result": "Thanx for registering with ADELPHOI"})
+                return JsonResponse({"Result": "Thank you for registering with ADELPHOI"})
             return JsonResponse({"data": "Failure"})
         else:
             return JsonResponse({"data": "serializer not allowed"})

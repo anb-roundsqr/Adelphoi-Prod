@@ -61,11 +61,13 @@ def index(request, *args, **kwargs):
         logger.info('directory is creating for pdf')
         os.makedirs(dirs + '/' + 'outputfiles/' + date_path + '/' +
                     str(results.client_code) + '/')
+	#print("location creared")
     except:
         pass
     reportfilename = str(str(results.client_code) + ".pdf")
     pdf_file_path = dirs + '/' + 'outputfiles/' + date_path + '/'
     pdf_file_path += str(results.client_code) + '/' + reportfilename
+    print("path",pdf_file_path)
     html = template.render(
         values
     )  # Renders the template with the context data.

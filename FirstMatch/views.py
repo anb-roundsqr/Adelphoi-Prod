@@ -1737,7 +1737,7 @@ class RecommndedProgramPCR(UpdateAPIView):
 
             if condition_program > 3:
                 result = 0
-                return Response({"pcr": result, "Roc_confidence": result})
+                return Response({"pcr": result, "roc_confidence": result})
             else:
 
                 dt = {

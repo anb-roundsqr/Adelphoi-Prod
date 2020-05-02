@@ -163,5 +163,5 @@ class UpdateSerializers(serializers.ModelSerializer):
             'confidence', 'level_of_care', 'facility_type',
             'client_selected_program', 'client_selected_level',
             'client_selected_facility', 'client_selected_locations',
-            'Program_Completion', 'Returned_to_Care', 'condition_program'
+            'Program_Completion', 'Returned_to_Care', 'condition_program','referred_program'
         ]

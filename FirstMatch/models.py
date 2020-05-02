@@ -289,7 +289,7 @@ class ModelTests(models.Model):
     )
     condition_program = models.IntegerField(db_column='condition_program')
 
-    roc_confidence = models.IntegerField(db_column='roc_confidence')
+    roc_confidence = models.IntegerField(db_column='roc_confidence',blank=True, null=True)
     # client_selected_program = models.CharField(max_length=10,
     #                                            choices=program_choices)
     #
@@ -366,7 +366,7 @@ class Adelphoi_Mapping(models.Model):
 
     program_type = models.CharField(db_column='program_type', max_length=100)
     default_level_facility = models.BooleanField(
-        db_column='default_level_facility')
+        db_column='default_level_facility',default=True)
 
 
 class ProgramModel(models.Model):
