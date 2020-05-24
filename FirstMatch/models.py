@@ -51,9 +51,9 @@ class ModelTests(models.Model):
                               (3, 'three or more'))
     prior_placements = ((0, 'no'), (1, 'one'), (2, 'two'),
                         (3, 'three or more'))
-    Severe_MH_symptoms = ((0, 'no ER/hospitalizations'), (1, 'last 3 months'),
-                          (2, '6 months ago'), (3, '9 months ago'),
-                          (4, '1 year or more ago'))
+    Severe_MH_symptoms = ((0, 'N/A'), (1, 'last 3 months'),
+                          (2, '4-8 months ago'), (3, '9-12 months ago'),
+                          (4, '1 or more years ago'))
     primary_lang_choices = ((1, 'English'), (2, 'not English'))
     second_lang = ((0, 'not at all'), (1, 'very little'), (2, 'average'),
                    (3, 'very well'))
@@ -243,6 +243,7 @@ class ModelTests(models.Model):
         auto_now=True)
 
     program = models.IntegerField(db_column='Program')
+    model_pred = models.IntegerField(db_column= 'Model_Pred_Program',null=True,blank=True)
     model_program = models.CharField(db_column='Model_Program',
                                      max_length=100)
     confidence = models.IntegerField(db_column='Confidence')

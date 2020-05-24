@@ -120,6 +120,7 @@ def run(*args):
             episode_number=i['EpisodeNumber'],
             client_code=i['ClientCode'],
             dob=i['DoB'],
+            age=i['Age'],
             gender=i['Gender'],
             primary_language=i['PrimaryLanguage'],
             RefSourceCode=i['RefSourceCode'],

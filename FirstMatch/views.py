@@ -585,7 +585,7 @@ class AdelphoiList(ListCreateAPIView):
                 if serializer.validated_data.get('gender') == 1:
                     logger.info(
                         'where Exclusionary_Criteria-False,'
-                        ' gender-1,condition_program-3'
+                        ' gender-1(Female),condition_program-3'
                     )
                     condition_program = 3
                     query2 = Adelphoi_Mapping.objects.filter(
@@ -624,6 +624,9 @@ class AdelphoiList(ListCreateAPIView):
                         facility_default[0]
                     )[1]
                     serializer.save(
+                        facility_type=facility_preds,
+                        level_of_care=level_pred,
+                        model_pred= program_pred,
                         roc_confidence=roc_confidence,
                         program=program_num[0],
                         condition_program=condition_program,
@@ -680,7 +683,7 @@ class AdelphoiList(ListCreateAPIView):
                     if serializer.validated_data.get('inclusionary_criteria'):
                         logger.info(
                             'where Exclusionary_Criteria-False,'
-                            ' gender-1,'
+                            ' gender-2(male),'
                             ' inclusionary_criteria=true,'
                             'condition_program-2'
                         )
@@ -719,6 +722,9 @@ class AdelphoiList(ListCreateAPIView):
                             facility_default[0]
                         )[1]
                         serializer.save(
+                            facility_type=facility_preds,
+                            level_of_care=level_pred,
+                            model_pred=program_pred,
                             roc_confidence=roc_confidence,
                             program=program_num[0],
                             condition_program=condition_program,
@@ -776,7 +782,7 @@ class AdelphoiList(ListCreateAPIView):
                             }
                         )
                     else:
-                        if (program_pred == 2 or program_pred == 1) :
+                        if program_pred == 2:
                             drugUse = serializer.validated_data.get(
                                 'drug_Use')
                             ylsSUBAB = serializer.validated_data.get(
@@ -785,7 +791,7 @@ class AdelphoiList(ListCreateAPIView):
                                 'alcohol_Use')
                             logger.info(
                                 'where Exclusionary_Criteria-False,'
-                                ' gender-1,'
+                                ' gender-2(male),'
                                 'inclusionary_criteria=false,'
                                 'program_pred-2'
                             )
@@ -807,7 +813,7 @@ class AdelphoiList(ListCreateAPIView):
                                 )
                             )
                             p13_model_preds = p13_model.predict(Xtest)
-                            if drugUse == 0 and ylsSUBAB == 0 and\
+                            if drugUse == 0 and ylsSUBAB == 0 and \
                                     alcholUSe == 0:
                                 condition_program = 3
                                 query6 = Adelphoi_Mapping.objects.filter(
@@ -843,6 +849,9 @@ class AdelphoiList(ListCreateAPIView):
                                     facility_default[0]
                                 )[1]
                                 serializer.save(
+                                    facility_type=facility_preds,
+                                    level_of_care=level_pred,
+                                    model_pred=program_pred,
                                     roc_confidence=roc_confidence,
                                     program=condition_program,
                                     confidence=confidence,
@@ -896,7 +905,7 @@ class AdelphoiList(ListCreateAPIView):
                                 return Response(
                                     {
                                         "model program": program_pred,
-                                        "program": p13_model_preds,
+                                        "program": condition_program,
                                         "Level of care": level_pred,
                                         "program_type":
                                             program_model_suggested_list,
@@ -945,6 +954,9 @@ class AdelphoiList(ListCreateAPIView):
                                     facility_default[0]
                                 )[1]
                                 serializer.save(
+                                    facility_type=facility_preds,
+                                    level_of_care=level_pred,
+                                    model_pred=program_pred,
                                     roc_confidence=roc_confidence,
                                     program=p13_model_preds,
                                     confidence=confidence,
@@ -1009,105 +1021,249 @@ class AdelphoiList(ListCreateAPIView):
                                         "Roc_confidence": roc_confidence,
                                         "list_program_types":
                                             unique_list_programs
-                                     }
+                                    }
                                 )
                         else:
-                            query5 = Adelphoi_Mapping.objects.filter(
-                                program=program_pred,
-                                gender=serializer.validated_data.get(
-                                    'gender'),
-                                level_of_care=level_pred,
-                                facility_type=facility_preds
-                            )
+                            # if program_pred == 2 :
+                            drugUse = serializer.validated_data.get(
+                                'drug_Use')
+                            ylsSUBAB = serializer.validated_data.get(
+                                'yls_Subab_Score')
+                            alcholUSe = serializer.validated_data.get(
+                                'alcohol_Use')
                             logger.info(
                                 'where Exclusionary_Criteria-False,'
-                                ' gender-1,'
+                                ' gender-2(male),'
                                 'inclusionary_criteria=false,'
-                                'program_pred-(1,3)'
+                                'program_pred-1 0r 3'
                             )
-                            for i in query5:
-                                program_num.append(i.program)
-                                program_list.append(i.program_name)
-                                level_list.append(i.level_names)
-                                facility_names.append(i.facility_names)
-                                #
-                                program_model_suggested_list.append(
-                                    i.program_model_suggested)
-                            query_default = Adelphoi_Mapping.objects.filter(
-                                program_model_suggested=program_model_suggested_list[0],
-                                default_level_facility=True)
-                            level_default = []
-                            facility_default = []
-                            for i in query_default:
-                                level_default.append(i.level_of_care)
-                                facility_default.append(i.facility_type)
-                            confidence = program_condition(
-                                program_pred,
-                                level_default[0],
-                                facility_default[0]
-                            )[0]
-                            roc_confidence = program_condition(
-                                program_pred,
-                                level_default[0],
-                                facility_default[0]
-                            )[1]
-                            serializer.save(
-                                roc_confidence=roc_confidence,
-                                program=program_num[0],
-                                confidence=confidence,
-                                family_support=data['Family support'][0],
-                                level_of_aggression=data[
-                                    'Level of aggression'][0],
-                                fire_setting=data['Fire setting'][0],
-                                client_self_harm=data['Client self-harm'][0],
-                                cans_LifeFunctioning=data[
-                                    'CANS_LifeFunctioning'][0],
-                                cans_YouthStrengths=data[
-                                    'CANS_YouthStrengths'][0],
-                                cans_CareGiverStrengths=data[
-                                    'CANS_CareGiverStrengths'][0],
-                                cans_Culture=data['CANS_Culture'][0],
-                                cans_YouthBehavior=data[
-                                    'CANS_YouthBehavior'][0],
-                                cans_YouthRisk=data['CANS_YouthRisk'][0],
-                                cans_Trauma_Exp=data['CANS_Trauma_Exp'][0],
-                                yls_PriorCurrentOffenses_Score=data[
-                                    'YLS_PriorCurrentOffenses_Score'][0],
-                                yls_FamCircumstances_Score=data[
-                                    'YLS_FamCircumstances_Score'][0],
-                                yls_Edu_Employ_Score=data[
-                                    'YLS_Edu_Employ_Score'][0],
-                                yls_Peer_Score=data['YLS_Peer_Score'][0],
-                                yls_Subab_Score=data['YLS_Subab_Score'][0],
-                                yls_Leisure_Score=data[
-                                    'YLS_Leisure_Score'][0],
-                                yls_Personality_Score=data[
-                                    'YLS_Personality_Score'][0],
-                                yls_Attitude_Score=data[
-                                    'YLS_Attitude_Score'][0],
-                                Screening_tool_Trauma=data[
-                                    'Screening tool for Trauma--Total score'
-                                ][0],
-                                FAST_FamilyTogetherScore=data[
-                                    'FAST_FamilyTogetherScore'][0],
-                                FAST_CaregiverAdvocacyScore=data[
-                                    'FAST_CaregiverAdvocacyScore'][0],
-                                inclusionary_criteria=serializer.validated_data.get(
-                                    'inclusionary_criteria'),
-                                model_program=program_model_suggested_list[0]
+                            # #server
+                            # p13_model = pickle.load(
+                            #     open(
+                            #         "/home/ubuntu/Adelphoi/adelphoi-django/"
+                            #          "sources/LR_P13_13feb.sav", "rb"
+                            #     )
+                            # )
+                            p13_model = pickle.load(
+                                open(
+                                    os.path.join(
+                                        SOURCE_DIR,
+                                        "new_pickles",
+                                        "R_LR_P13_11march.sav"
+                                    ),
+                                    "rb"
+                                )
                             )
-                            return Response({
-                                "model program": program_pred,
-                                "program": program_pred,
-                                "Level of care": level_pred,
-                                "program_type": program_model_suggested_list,
-                                "Facility Type": facility_preds,
-                                "gender": serializer.validated_data.get(
-                                    'gender'),
-                                "Confidence": confidence,
-                                "Roc_confidence": roc_confidence,
-                                "list_program_types": unique_list_programs
-                            })
+                            p13_model_preds = p13_model.predict(Xtest)
+                            if drugUse == 0 and ylsSUBAB == 0 and \
+                                    alcholUSe == 0:
+                                condition_program = 3
+                                query6 = Adelphoi_Mapping.objects.filter(
+                                    program=condition_program,
+                                    gender=serializer.validated_data.get(
+                                        'gender'),
+                                    level_of_care=level_pred,
+                                    facility_type=facility_preds
+                                )
+                                for i in query6:
+                                    program_list.append(i.program_name)
+                                    level_list.append(i.level_names)
+                                    facility_names.append(i.facility_names)
+                                    # program_type.append(i.program_type)
+                                    program_model_suggested_list.append(
+                                        i.program_model_suggested)
+                                query_default = Adelphoi_Mapping.objects.filter(
+                                    program_model_suggested=program_model_suggested_list[0],
+                                    default_level_facility=True)
+                                level_default = []
+                                facility_default = []
+                                for i in query_default:
+                                    level_default.append(i.level_of_care)
+                                    facility_default.append(i.facility_type)
+                                confidence = program_condition(
+                                    condition_program,
+                                    level_default[0],
+                                    facility_default[0]
+                                )[0]
+                                roc_confidence = program_condition(
+                                    condition_program,
+                                    level_default[0],
+                                    facility_default[0]
+                                )[1]
+                                serializer.save(
+                                    facility_type=facility_preds,
+                                    level_of_care=level_pred,
+                                    model_pred=program_pred,
+                                    roc_confidence=roc_confidence,
+                                    program=condition_program,
+                                    confidence=confidence,
+                                    family_support=data['Family support'][0],
+                                    level_of_aggression=data[
+                                        'Level of aggression'][0],
+                                    fire_setting=data['Fire setting'][0],
+                                    client_self_harm=data[
+                                        'Client self-harm'][0],
+                                    cans_LifeFunctioning=data[
+                                        'CANS_LifeFunctioning'][0],
+                                    cans_YouthStrengths=data[
+                                        'CANS_YouthStrengths'][0],
+                                    cans_CareGiverStrengths=data[
+                                        'CANS_CareGiverStrengths'][0],
+                                    cans_Culture=data['CANS_Culture'][0],
+                                    cans_YouthBehavior=data[
+                                        'CANS_YouthBehavior'][0],
+                                    cans_YouthRisk=data['CANS_YouthRisk'][0],
+                                    cans_Trauma_Exp=data[
+                                        'CANS_Trauma_Exp'][0],
+                                    yls_PriorCurrentOffenses_Score=data[
+                                        'YLS_PriorCurrentOffenses_Score'][0],
+                                    yls_FamCircumstances_Score=data[
+                                        'YLS_FamCircumstances_Score'][0],
+                                    yls_Edu_Employ_Score=data[
+                                        'YLS_Edu_Employ_Score'][0],
+                                    yls_Peer_Score=data['YLS_Peer_Score'][0],
+                                    yls_Subab_Score=data[
+                                        'YLS_Subab_Score'][0],
+                                    yls_Leisure_Score=data[
+                                        'YLS_Leisure_Score'][0],
+                                    yls_Personality_Score=data[
+                                        'YLS_Personality_Score'][0],
+                                    yls_Attitude_Score=data[
+                                        'YLS_Attitude_Score'][0],
+                                    Screening_tool_Trauma=data[
+                                        'Screening tool for '
+                                        'Trauma--Total score'
+                                    ][0],
+                                    FAST_FamilyTogetherScore=data[
+                                        'FAST_FamilyTogetherScore'][0],
+                                    FAST_CaregiverAdvocacyScore=data[
+                                        'FAST_CaregiverAdvocacyScore'][0],
+                                    inclusionary_criteria=serializer.validated_data.get(
+                                        'inclusionary_criteria'
+                                    ),
+                                    model_program=program_model_suggested_list[
+                                        0]
+                                )
+                                return Response(
+                                    {
+                                        "model program": program_pred,
+                                        "program": condition_program,
+                                        "Level of care": level_pred,
+                                        "program_type":
+                                            program_model_suggested_list,
+                                        "Facility Type": facility_preds,
+                                        "gender":
+                                            serializer.validated_data.get(
+                                                'gender'),
+                                        "Confidence": confidence,
+                                        "Roc_confidence": roc_confidence,
+                                        "list_program_types":
+                                            unique_list_programs
+                                    }
+                                )
+                            else:
+                                query5 = Adelphoi_Mapping.objects.filter(
+                                    program=program_pred,
+                                    gender=serializer.validated_data.get('gender'),
+                                    level_of_care=level_pred,
+                                    facility_type=facility_preds
+                                )
+                                for i in query5:
+                                    program_list.append(i.program_name)
+                                    level_list.append(i.level_names)
+                                    facility_names.append(i.facility_names)
+                                    # program_type.append(i.program_type)
+                                    program_model_suggested_list.append(
+                                        i.program_model_suggested)
+                                query_default = Adelphoi_Mapping.objects.filter(
+                                    program_model_suggested=program_model_suggested_list[0],
+                                    default_level_facility=True
+                                )
+                                level_default = []
+                                facility_default = []
+                                for i in query_default:
+                                    level_default.append(i.level_of_care)
+                                    facility_default.append(i.facility_type)
+                                confidence = program_condition(
+                                    program_pred,
+                                    level_default[0],
+                                    facility_default[0]
+                                )[0]
+                                roc_confidence = program_condition(
+                                    program_pred,
+                                    level_default[0],
+                                    facility_default[0]
+                                )[1]
+                                serializer.save(
+                                    facility_type=facility_preds,
+                                    level_of_care=level_pred,
+                                    model_pred=program_pred,
+                                    roc_confidence=roc_confidence,
+                                    program=program_pred,
+                                    confidence=confidence,
+                                    family_support=data['Family support'][0],
+                                    level_of_aggression=data[
+                                        'Level of aggression'][0],
+                                    fire_setting=data['Fire setting'][0],
+                                    client_self_harm=data[
+                                        'Client self-harm'][0],
+                                    cans_LifeFunctioning=data[
+                                        'CANS_LifeFunctioning'][0],
+                                    cans_YouthStrengths=data[
+                                        'CANS_YouthStrengths'][0],
+                                    cans_CareGiverStrengths=data[
+                                        'CANS_CareGiverStrengths'][0],
+                                    cans_Culture=data['CANS_Culture'][0],
+                                    cans_YouthBehavior=data[
+                                        'CANS_YouthBehavior'][0],
+                                    cans_YouthRisk=data['CANS_YouthRisk'][0],
+                                    cans_Trauma_Exp=data[
+                                        'CANS_Trauma_Exp'][0],
+                                    yls_PriorCurrentOffenses_Score=data[
+                                        'YLS_PriorCurrentOffenses_Score'][0],
+                                    yls_FamCircumstances_Score=data[
+                                        'YLS_FamCircumstances_Score'][0],
+                                    yls_Edu_Employ_Score=data[
+                                        'YLS_Edu_Employ_Score'][0],
+                                    yls_Peer_Score=data['YLS_Peer_Score'][0],
+                                    yls_Subab_Score=data[
+                                        'YLS_Subab_Score'][0],
+                                    yls_Leisure_Score=data[
+                                        'YLS_Leisure_Score'][0],
+                                    yls_Personality_Score=data[
+                                        'YLS_Personality_Score'][0],
+                                    yls_Attitude_Score=data[
+                                        'YLS_Attitude_Score'][0],
+                                    Screening_tool_Trauma=data[
+                                        'Screening tool for'
+                                        ' Trauma--Total score'
+                                    ][0],
+                                    FAST_FamilyTogetherScore=data[
+                                        'FAST_FamilyTogetherScore'][0],
+                                    FAST_CaregiverAdvocacyScore=data[
+                                        'FAST_CaregiverAdvocacyScore'][0],
+                                    inclusionary_criteria=serializer.validated_data.get(
+                                        'inclusionary_criteria'
+                                    ),
+                                    model_program=program_model_suggested_list[0]
+                                )
+                                return Response(
+                                    {
+                                        "model program": program_pred,
+                                        "program": program_pred,
+                                        "Level of care": level_pred,
+                                        "program_type":
+                                            program_model_suggested_list,
+                                        "Facility Type": facility_preds,
+                                        "gender":
+                                            serializer.validated_data.get(
+                                                'gender'),
+                                        "Confidence": confidence,
+                                        "Roc_confidence": roc_confidence,
+                                        "list_program_types":
+                                            unique_list_programs
+                                    }
+                                )
             else:
                 if serializer.validated_data.get('gender') == 1:
                     condition_program = 3
@@ -1145,6 +1301,8 @@ class AdelphoiList(ListCreateAPIView):
                         facility_default[0]
                     )[1]
                     serializer.save(
+                        facility_type=facility_preds,
+                        level_of_care=level_pred,model_pred= program_pred,
                         roc_confidence=roc_confidence, program=program_num[0],
                         condition_program=condition_program,
                         confidence=confidence,
