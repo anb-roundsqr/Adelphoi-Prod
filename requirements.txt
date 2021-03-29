@@ -85,7 +85,7 @@ pycparser==2.19
 # pycrypto<=2.6.1
 pydot==1.4.1
 pyflakes==2.1.1
-Pygments==2.5.1
+Pygments==2.7.4
 pygobject==3.26.1
 PyHamcrest==2.0.2
 PyJWT==1.5.3
