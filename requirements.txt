@@ -133,7 +133,7 @@ Twisted>=20.3.0
 ufw==0.36
 unattended-upgrades==0.1
 uritemplate==3.0.0
-urllib3==1.25.7
+urllib3==1.26.5
 uWSGI==2.0.18
 virtualenv==16.7.9
 virtualenv-clone==0.5.3
